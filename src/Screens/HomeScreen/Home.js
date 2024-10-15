@@ -3,13 +3,15 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addFavoriteMovies, addWatchlistMovies } from "../../Redux/TaskSlice";
 import Header from "../../Components/Header";
+import { useNavigate } from "react-router-dom";
+// https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m
 
 function Home() {
   const [movies, setMovies] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const dispatch = useDispatch();
   const userName = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(
@@ -28,13 +30,25 @@ function Home() {
 
   const handleAddToFav = () => {
     const selectedMovies = movies.filter((movie) => checkedItems[movie.id]);
+    if(selectedMovies.length === 0){
+      alert("No items selected. Please select an item to add to Favourites")
+      return;
+    }
     dispatch(addFavoriteMovies(selectedMovies));
+    alert(selectedMovies.length + " movies have been added to Favourites")
   };
 
   const handleAddToWatchlist = () => {
     const selectedMovies = movies.filter((movie) => checkedItems[movie.id]);
+    // alert(selectedMovies.length)
+    if(selectedMovies.length === 0){
+      alert("No items selected. Please select an item to add to Watchlist")
+      return;
+    }
     dispatch(addWatchlistMovies(selectedMovies));
+    alert(selectedMovies.length + " movies have been added to Watchlist")
   };
+
 
   return (
     <div className=" p-5 flex flex-col justify-center items-center">
@@ -61,7 +75,7 @@ function Home() {
                   />
                 </td>
                 <td className="text-center border-2 border-black p-3">
-                  {item.name || "N/A"}
+                  <button type="button" onClick={() =>navigate("/details", { state: item})}>{item.name || "N/A"}</button>
                 </td>
                 <td className="text-center border-2 border-black p-3">
                   {item.type || "N/A"}
@@ -72,12 +86,6 @@ function Home() {
         </table>
 
         <div className="fixed bottom-5 right-5 space-y-4">
-          {/* <button
-          className="w-full px-4 py-2 bg-red-600 text-white rounded-md"
-          onClick={handleAddToWatchlist}
-        >
-          Add to Watchlist
-        </button> */}
           <button
             className="w-full px-4 py-2 bg-red-600 text-white rounded-md"
             onClick={handleAddToFav}
