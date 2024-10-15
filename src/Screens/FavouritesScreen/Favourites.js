@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFavoriteMovies } from "../Redux/TaskSlice";
-import Header from "./Header";
+import { removeFavoriteMovies } from "../../Redux/TaskSlice";
+import Header from "../../Components/Header";
 
 function Favourites() {
   const favoriteMovies = useSelector((state) => state.tasks.favoriteMovies);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addFavoriteMovies, addWatchlistMovies } from "../Redux/TaskSlice";
-import Header from "./Header";
+import { addFavoriteMovies, addWatchlistMovies } from "../../Redux/TaskSlice";
+import Header from "../../Components/Header";
 
 function Home() {
   const [movies, setMovies] = useState([]);

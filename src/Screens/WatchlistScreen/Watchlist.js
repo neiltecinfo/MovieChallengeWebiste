@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
-import { removeWatchlistMovies } from '../Redux/TaskSlice';
-import Header from './Header';
+import { removeWatchlistMovies } from '../../Redux/TaskSlice';
+import Header from '../../Components/Header';
 
 function Watchlist() {
   const watchlistMovies = useSelector(state => state.tasks.watchlistMovies); 
