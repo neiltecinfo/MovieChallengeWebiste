@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { BeakerIcon, Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom"; 
+import { useLocation } from "react-router-dom";
+
 
 const Header = () => {
+  let location = useLocation();
   let Links = [
-    { name: "Home", link: "/home" },
-    { name: "Favourites", link: "/favourites" },
-    { name: "Watchlist", link: "/watchlist" },
-    { name: "Profile", link: "/profile" },
+    { name: "Home", link: "/home", bgccolor:"#3368bd" },
+    { name: "Favourites", link: "/favourites", bgccolor:"#3368bd" },
+    { name: "Watchlist", link: "/watchlist", bgccolor:"#3368bd" },
+    { name: "Profile", link: "/profile", bgccolor:"#3368bd" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +39,9 @@ const Header = () => {
         >
           {Links.map((link) => (
             <li key={link.name} className="my-7 md:my-0 md:ml-8 font-semibold">
-              <Link to={link.link}>{link.name}</Link>
+              <Link to={link.link} onClick={() => console.log(link.link)} 
+                style={{color: location.pathname === link.link ? "#3368bd" : "#000"}}
+              >{link.name}</Link>
             </li>
           ))}
           {/* <button className="btn bg-blue-600 text-white py-1 px-3 md:ml-8 rounded">
